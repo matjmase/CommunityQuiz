@@ -1,0 +1,110 @@
+<ng-template #modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ item.Question.Id === 0 ? "Add" : "Edit" }} Question
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="Close()"
+    ></button>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="Accept(form)">
+    <div class="modal-body">
+      <fieldset class="col-sm-10" formGroupName="Question">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Question Statement</label
+          >
+          <textarea
+            class="form-control"
+            id="exampleFormControlInput1"
+            formControlName="Statement"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Weighting</label
+          >
+          <input
+            class="form-control"
+            id="exampleFormControlInput1"
+            formControlName="Weighting"
+            type="number"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            class="form-check-input me-1"
+            type="checkbox"
+            formControlName="MultiAnswer"
+            id="firstCheckbox"
+          />
+          <label class="form-check-label" for="firstCheckbox"
+            >Multi-Answer</label
+          >
+        </div>
+      </fieldset>
+      <fieldset class="col-sm-10" formArrayName="Answers">
+        <div *ngFor="let answers of formAnswers.controls; let i = index">
+          <hr />
+          <div class="mb-3" [formGroup]="answers">
+            <fieldset class="col-sm-10" formArrayName="Answer">
+              <label for="answerFormControlInput" class="form-label"
+                >Answer Statement</label
+              >
+              <textarea
+                class="form-control"
+                id="answerFormControlInput"
+                formControlName="Statement"
+              ></textarea>
+              <input
+                class="form-check-input me-1"
+                type="checkbox"
+                formControlName="Correct"
+                id="arrayCheckbox"
+              />
+              <label class="form-check-label" for="arrayCheckbox"
+                >Correct Answer</label
+              >
+            </fieldset>
+          </div>
+          <div class="d-flex">
+            <div class="flex-grow-1"></div>
+            <button
+              *ngIf="!quiz.Published"
+              class="btn btn-danger flex-shrink-1"
+              type="button"
+              (click)="RemoveAnswer(i)"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      </fieldset>
+      <div *ngIf="!quiz.Published" class="mb-3">
+        <button class="btn btn-primary" type="button" (click)="AddAnswer()">
+          Add Answer
+        </button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <small style="color: red">
+        {{ ModelError() }}
+      </small>
+      <button
+        type="button"
+        class="btn btn-success"
+        [disabled]="ModelError()"
+        (click)="Accept(form)"
+        *ngIf="!quiz.Published"
+      >
+        Confirm
+      </button>
+      <button type="button" class="btn btn-danger" (click)="Close()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</ng-template>

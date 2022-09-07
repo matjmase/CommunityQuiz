@@ -1,0 +1,24 @@
+<h1>Quizz</h1>
+<div>
+  <div div class="mb-3 row">
+    <input
+      type="text"
+      readonly
+      class="form-control-plaintext"
+      style="text-align: center; font-size: 150%"
+      [value]="results.Quiz.QuizName"
+    />
+  </div>
+  <input
+    *ngIf="results.QuizzEvents.length !== 0"
+    type="text"
+    readonly
+    class="form-control-plaintext"
+    style="text-align: center; font-size: 150%"
+    [value]="results.QuizzEvents[0].QuizzEvent.Date | date: 'short'"
+  />
+</div>
+
+<app-quizz-question-review
+  [MyQuestions]="results.Questions"
+></app-quizz-question-review>

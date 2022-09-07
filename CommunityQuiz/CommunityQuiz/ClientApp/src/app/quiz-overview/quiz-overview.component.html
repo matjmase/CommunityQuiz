@@ -1,0 +1,52 @@
+<app-quiz-add-edit-modal
+  [Communicate]="addEditCommunicate"
+></app-quiz-add-edit-modal>
+
+<div>
+  <h1>Quiz Overview</h1>
+</div>
+
+<div class="equal-container-double">
+  <div>
+    <div style="text-align: center"><h3>Group</h3></div>
+    <ul class="list-group">
+      <li
+        *ngFor="let item of groupCollection"
+        class="list-group-item"
+        style="cursor: pointer"
+        [ngClass]="{ active: item === selectedGroup }"
+        (click)="SelectGroup(item)"
+      >
+        <p>{{ item.GroupName }}</p>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <div style="text-align: center"><h3>Quizes</h3></div>
+    <ul class="list-group">
+      <li
+        *ngIf="selectedGroup"
+        (click)="AddNewQuizInit()"
+        class="list-group-item dislay-flex-row btn btn-success"
+      >
+        <p class="display-flex-grow">Add Quiz</p>
+      </li>
+
+      <li
+        *ngFor="let item of quizCollection"
+        class="list-group-item d-flex flex-row dislay-flex-row details-item"
+        style="cursor: pointer"
+        (click)="EditNewQuizInit($event, item)"
+      >
+        <p class="flex-grow-1">{{ item.QuizName }}</p>
+
+        <button
+          class="btn btn-primary flex-shrink-1"
+          (click)="ViewQuizDetails($event, item)"
+        >
+          Details
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

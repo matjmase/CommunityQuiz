@@ -1,0 +1,53 @@
+<app-notification-modal [Communicate]="notification"></app-notification-modal>
+
+<form #registerForm="ngForm" (ngSubmit)="OnSubmit(registerForm)">
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input
+        #email="ngModel"
+        ngModel
+        name="Email"
+        type="email"
+        class="form-control"
+        placeholder="example@domain.com"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        required
+      />
+    </div>
+  </div>
+
+  <small class="text-danger" *ngIf="email.touched && email.errors?.required"
+    >Email address is required</small
+  >
+  <small class="text-danger" *ngIf="email.errors?.pattern"
+    >Email address is invalid</small
+  >
+
+  <div class="mb-3 row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input
+        #pass1="ngModel"
+        ngModel
+        name="Password"
+        type="password"
+        class="form-control"
+        id="inputPassword"
+        required
+      />
+    </div>
+  </div>
+  <small class="text-danger" *ngIf="pass1.touched && pass1.errors?.required"
+    >Password is required</small
+  >
+  <div class="mb-3 row">
+    <button
+      [disabled]="email.errors || pass1.errors"
+      type="submit"
+      class="btn btn-success"
+    >
+      Login!
+    </button>
+  </div>
+</form>

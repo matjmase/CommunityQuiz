@@ -1,0 +1,64 @@
+<app-question-details-add-edit-modal
+  [Communicate]="questionsWithQuizCommunication"
+></app-question-details-add-edit-modal>
+
+<app-comfirmation-modal
+  [Communicate]="confirmDeleteQuestionCommunication"
+></app-comfirmation-modal>
+
+<app-comfirmation-modal
+  [Communicate]="confirmPublishCommunication"
+></app-comfirmation-modal>
+
+<app-comfirmation-modal
+  [Communicate]="confirmDeleteQuizCommunication"
+></app-comfirmation-modal>
+
+<div>
+  <h1>Quiz Details</h1>
+</div>
+<div>
+  <h3>{{ quiz?.QuizName }}</h3>
+  <div>
+    <ul class="list-group">
+      <li
+        *ngIf="!quiz?.Published"
+        class="list-group-item btn btn-success"
+        (click)="AddNewQuestion()"
+      >
+        <p>Add Question</p>
+      </li>
+      <li
+        class="list-group-item details-item d-flex flex-row text-start"
+        *ngFor="let question of questions"
+        (click)="EditQuestion(question)"
+      >
+        <p class="flex-grow-1">
+          {{ question.Statement }}
+        </p>
+
+        <button
+          *ngIf="!quiz?.Published"
+          class="btn btn-danger flex-shrink-1"
+          (click)="DeleteQuestion(question)"
+        >
+          Remove
+        </button>
+      </li>
+
+      <li
+        *ngIf="!quiz?.Published"
+        class="list-group-item btn btn-info"
+        (click)="PublishQuiz()"
+      >
+        <p>Publish Quiz</p>
+      </li>
+      <li
+        class="list-group-item btn btn-danger"
+        (click)="RemoveQuizInit($event)"
+      >
+        <p>Remove Quiz</p>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<app-comfirmation-modal
+  [Communicate]="quizSubmitConfirmation"
+></app-comfirmation-modal>
+
+<h1>Quizz</h1>
+<form [formGroup]="form" (ngSubmit)="AcceptConfirm()">
+  <fieldset formGroupName="Quiz">
+    <div div class="mb-3 row">
+      <input
+        type="text"
+        readonly
+        class="form-control-plaintext"
+        style="text-align: center; font-size: 150%"
+        formControlName="QuizName"
+        name="QuizName"
+      />
+    </div>
+  </fieldset>
+  <fieldset formArrayName="Questions">
+    <div
+      div
+      *ngFor="let questions of questions.controls; let i = index"
+      class="mb-3 row"
+    >
+      <div [formGroup]="questions">
+        <fieldset formGroupName="Question">
+          <hr />
+
+          <label for="exampleFormControlInput1" class="form-label"
+            >Question Statement</label
+          >
+          <textarea
+            class="form-control"
+            readonly
+            id="exampleFormControlInput1"
+            formControlName="Statement"
+            name="Statement"
+          ></textarea>
+        </fieldset>
+        <fieldset formArrayName="Answers">
+          <div
+            div
+            *ngFor="let answer of answers[i].controls; let j = index"
+            class="mb-3 row"
+          >
+            <div class="mb-3" [formGroup]="answer">
+              <fieldset formGroupName="Answer">
+                <label for="answerFormControlInput" class="form-label"
+                  >Answer Statement</label
+                >
+                <div class="form-check">
+                  <input
+                    (click)="BlurFocusOnElement()"
+                    *ngIf="GetQuestion(i, 'MultiAnswer').value"
+                    class="form-check-input"
+                    type="checkbox"
+                    [value]="GetAnswer(i, j, 'Id').value"
+                    [formControl]="GetAnswerConnected(i, j, 'Selection')"
+                    [name]="'answer-' + i.toString() + j.toString()"
+                  />
+                  <input
+                    (click)="BlurFocusOnElement()"
+                    *ngIf="!GetQuestion(i, 'MultiAnswer').value"
+                    class="form-check-input"
+                    type="radio"
+                    [value]="GetAnswer(i, j, 'Id').value"
+                    [formControl]="GetQuestionConnected(i, 'Selection')"
+                    [name]="'answer-' + i.toString() + j.toString()"
+                  />
+                  <textarea
+                    class="form-control"
+                    readonly
+                    id="answerFormControlInput"
+                    formControlName="Statement"
+                    name="Statement"
+                  ></textarea>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </fieldset>
+  <div div class="mb-3 row">
+    <button [disabled]="!AllQuestionsAnswers()" class="btn btn-success">
+      Accept
+    </button>
+  </div>
+</form>

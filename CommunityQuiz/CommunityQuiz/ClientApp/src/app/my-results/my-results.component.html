@@ -1,0 +1,19 @@
+<div>
+  <h1>My Quiz Results!</h1>
+</div>
+
+<ngb-accordion #acc="ngbAccordion">
+  <ngb-panel *ngFor="let results of results" [title]="results.Quiz.QuizName">
+    <ng-template ngbPanelContent>
+      <ul class="list-group">
+        <li
+          class="list-group-item details-item"
+          *ngFor="let event of results.QuizzEvents"
+          (click)="ReviewResults(event.QuizzEvent)"
+        >
+          {{ event.QuizzEvent.Date | date: "short" }}
+        </li>
+      </ul>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

@@ -1,0 +1,23 @@
+<app-comfirmation-modal
+  [Communicate]="quizConfirmCommunicate"
+></app-comfirmation-modal>
+
+<div>
+  <h1>My Quizzes!</h1>
+</div>
+
+<ngb-accordion #acc="ngbAccordion">
+  <ngb-panel *ngFor="let group of groupDetails" [title]="group.Group.GroupName">
+    <ng-template ngbPanelContent>
+      <ul class="list-group">
+        <li
+          class="list-group-item details-item"
+          *ngFor="let quiz of group.Quizzes"
+          (click)="TakeQuiz(quiz.Quiz)"
+        >
+          {{ quiz.Quiz.QuizName }}
+        </li>
+      </ul>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

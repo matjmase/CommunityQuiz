@@ -1,0 +1,15 @@
+.correct-answer::before {
+  content: "✓";
+  color: green;
+  display: block;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.wrong-answer::before {
+  content: "X";
+  color: Red;
+  display: block;
+  font-weight: bold;
+  margin-top: 15px;
+}

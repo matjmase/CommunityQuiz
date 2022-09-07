@@ -1,0 +1,80 @@
+<app-group-add-edit-modal
+  [Communicate]="addEditCommunication"
+></app-group-add-edit-modal>
+<app-comfirmation-modal
+  [Communicate]="removeGroupConfirmCommunication"
+></app-comfirmation-modal>
+
+<app-comfirmation-modal
+  [Communicate]="removeConfirmCommunication"
+></app-comfirmation-modal>
+<app-comfirmation-modal
+  [Communicate]="addConfirmCommunication"
+></app-comfirmation-modal>
+
+<div>
+  <h1>Groups</h1>
+</div>
+<div class="equal-container">
+  <div>
+    <div style="text-align: center"><h3>Group</h3></div>
+    <ul class="list-group">
+      <li class="list-group-item btn btn-success" (click)="AddNewGroup()">
+        <p>Add item</p>
+      </li>
+      <li
+        *ngFor="let item of groupCollection"
+        class="list-group-item d-flex flex-row"
+        style="cursor: pointer"
+        [ngClass]="{ active: item === selectedGroup }"
+        (click)="SelectGroup(item)"
+      >
+        <p class="flex-grow-1 text-start">{{ item.GroupName }}</p>
+        <button
+          class="btn btn-primary flex-shrink-1"
+          (click)="EditGroup($event, item)"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-danger flex-shrink-1"
+          (click)="RemoveGroup($event, item)"
+        >
+          Remove
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <div style="text-align: center"><h3>Members</h3></div>
+    <ul class="list-group">
+      <li *ngFor="let item of members" class="list-group-item d-flex flex-row">
+        <p class="flex-grow-1 text-start">{{ item.UserName }}</p>
+        <button
+          class="btn btn-danger flex-shrink-1"
+          (click)="RemoveUserFromGroup(item)"
+        >
+          Remove
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <div style="text-align: center"><h3>NonMembers</h3></div>
+    <ul class="list-group">
+      <li
+        *ngFor="let item of nonmembers"
+        class="list-group-item d-flex flex-row"
+      >
+        <p class="flex-grow-1 text-start">{{ item.UserName }}</p>
+        <button
+          class="btn btn-success flex-shrink-1"
+          [hidden]="selectedGroup === undefined"
+          (click)="AddUserToGroup(item)"
+        >
+          Add
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<ng-template #modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ item.Id === 0 ? "Add" : "Edit" }} Quiz
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="Close()"
+    ></button>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="Accept(form)">
+    <div class="modal-body">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label"
+          >Quiz Name</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          formControlName="QuizName"
+        />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-success"
+        *ngIf="!item.Published"
+        (click)="Accept(form)"
+      >
+        Confirm
+      </button>
+      <button type="button" class="btn btn-danger" (click)="Close()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</ng-template>

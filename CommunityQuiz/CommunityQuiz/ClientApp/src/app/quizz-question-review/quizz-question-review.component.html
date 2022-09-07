@@ -1,0 +1,81 @@
+<div>
+  <label for="exampleFormControlInput1" class="form-label"
+    >Total Score: {{ TotalScore() | number: "1.0-0" }}</label
+  >
+  <div div *ngFor="let question of questions; let i = index" class="mb-3 row">
+    <div>
+      <hr />
+
+      <label for="exampleFormControlInput1" class="form-label"
+        >Question Statement</label
+      >
+      <div
+        [ngClass]="{
+          'correct-question': IsCorrectAnswerGroup(question),
+          'wrong-question': !IsCorrectAnswerGroup(question)
+        }"
+      >
+        <textarea
+          class="form-control"
+          readonly
+          id="exampleFormControlInput1"
+          [value]="question.Question.Statement"
+        ></textarea>
+      </div>
+      <div>
+        <div
+          div
+          *ngFor="let answer of question.Answers; let j = index"
+          class="mb-3 row"
+        >
+          <div class="mb-3">
+            <label for="answerFormControlInput" class="form-label"
+              >Answer Statement</label
+            >
+            <div class="form-check">
+              <input
+                [ngClass]="{
+                  'wrong-answer':
+                    answer.AnswerEvents[0].AnswerEvent.Selection !==
+                    answer.Answer.Correct,
+                  'correct-answer':
+                    answer.AnswerEvents[0].AnswerEvent.Selection ===
+                    answer.Answer.Correct
+                }"
+                *ngIf="question.Question.MultiAnswer"
+                disabled
+                class="form-check-input"
+                type="checkbox"
+                [checked]="answer.AnswerEvents[0].AnswerEvent.Selection"
+                [name]="'answer-' + i.toString()"
+              />
+              <input
+                [ngClass]="{
+                  'wrong-answer':
+                    answer.AnswerEvents[0].AnswerEvent.Selection !==
+                    answer.Answer.Correct,
+                  'correct-answer':
+                    answer.AnswerEvents[0].AnswerEvent.Selection ===
+                    answer.Answer.Correct
+                }"
+                *ngIf="!question.Question.MultiAnswer"
+                disabled
+                class="form-check-input"
+                type="radio"
+                [value]="answer.Answer.Id"
+                [checked]="selectedId[i] === answer.Answer.Id"
+                [name]="'answer-' + i.toString()"
+              />
+              <textarea
+                class="form-control"
+                readonly
+                id="answerFormControlInput"
+                [value]="answer.Answer.Statement"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

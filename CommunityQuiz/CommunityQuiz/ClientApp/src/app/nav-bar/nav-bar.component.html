@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Community Quiz</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink=""
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            *appAuthorize="'Administrator'"
+            class="nav-link"
+            routerLink="/group"
+            routerLinkActive="active"
+            >Group</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            *appAuthorize="'Tester'"
+            class="nav-link"
+            routerLink="/quiz/overview"
+            routerLinkActive="active"
+            >Quiz Overview</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a
+            *appAuthorize="'Tester'"
+            class="nav-link"
+            routerLink="/mystudents"
+            routerLinkActive="active"
+            >My Students' Results</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            *appAuthorize="'User'"
+            class="nav-link"
+            routerLink="/quiz/my"
+            routerLinkActive="active"
+            >My Quizzes</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            *appAuthorize="'User'"
+            class="nav-link"
+            routerLink="/results/overview"
+            routerLinkActive="active"
+            >My Results</a
+          >
+        </li>
+      </ul>
+      <div class="navbar-nav mr-0 mb-2 mb-lg-0 d-flex" role="search">
+        <button
+          class="btn btn-outline-primary"
+          routerLink="/login"
+          type="button"
+          *appAuthenticate="false"
+        >
+          Login
+        </button>
+        <button
+          class="btn btn-outline-success"
+          routerLink="/register"
+          type="button"
+          *appAuthenticate="false"
+        >
+          Register
+        </button>
+        <button
+          class="btn btn-outline-danger"
+          type="button"
+          (click)="logoutClicked()"
+          *appAuthenticate="true"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

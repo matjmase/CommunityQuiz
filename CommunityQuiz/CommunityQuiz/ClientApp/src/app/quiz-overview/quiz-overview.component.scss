@@ -1,0 +1,16 @@
+.equal-container-double {
+  display: flex;
+  flex-direction: row;
+}
+
+.equal-container-double > * {
+  flex-grow: 1;
+  flex-basis: 1;
+  max-width: 50%;
+  min-width: 50%;
+  margin-right: 20px;
+}
+
+.equal-container > *:first-child {
+  margin-left: 20px;
+}
