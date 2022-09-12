@@ -51,12 +51,13 @@ namespace CommunityQuiz.Controllers
         {
             var user = DbModelExtensions.GetCurrentUser(HttpContext);
 
-            var dbQuiz = GetUserQuizzes(HttpContext).FirstOrDefault(e => e.Id == quiz.Id);
+            var dbQuizzes = GetUserQuizzes(HttpContext);
 
-            if (dbQuiz == null)
+            if (!dbQuizzes.Any(e => e.Id == quiz.Id))
                 return BadRequest("Quiz Id not currently in the database");
 
             _db.Quizzes.Update(quiz);
+
             await _db.SaveChangesAsync();
 
             return Ok();
